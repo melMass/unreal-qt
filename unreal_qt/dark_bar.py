@@ -31,7 +31,7 @@ class DarkBar(QWidget):
         self.icon_layout = QHBoxLayout()
 
         self.btn_icon = QPushButton("♥")
-        self.title_text = QLabel("   " + title)  # hack, add space instead of margin
+        self.title_text = QLabel(f"   {title}")
         self.btn_close = QPushButton("🗙")
         self.btn_minimize = QPushButton("🗕")
         self.btn_maximize = QPushButton("🗖")
