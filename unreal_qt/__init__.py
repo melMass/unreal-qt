@@ -6,7 +6,10 @@ import sys
 from PySide2 import QtWidgets, QtCore
 import functools
 import unreal_qt.dark_bar
-import unreal
+try:
+    import unreal
+except ImportError:
+    print("Not in unreal...")
 
 
 def setup():
@@ -79,10 +82,14 @@ class widget_manager():
     def add_widget(cls, widget: QtWidgets.QWidget):
         if widget in cls.widgets:
             return
-
         # connect a callback to the close event of the widget
-        widget.close.connect(lambda: cls.remove_window(widget))
-
+        try:
+            # pyqt
+            widget.close.connect(lambda: cls.remove_window(widget))
+        except Exception:
+            # pyside
+            widget.destroyed.connect(lambda: cls.remove_window(widget))
+            
         cls.widgets.append(widget)
 
     @classmethod
